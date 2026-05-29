@@ -13,8 +13,8 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState(pathname === "/" ? "Home" : "")
-  const primaryNavItems = navItems.slice(0, 5)
-  const trailingNavItems = navItems.slice(5)
+  const primaryNavItems = navItems.slice(0, 4)
+  const trailingNavItems = navItems.slice(4)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,8 +37,6 @@ export function Navbar() {
       { id: "services", name: "Services" },
       { id: "projects", name: "Projects" },
       { id: "testimonials", name: "Testimonials" },
-      { id: "get-quote", name: "Quote" },
-      { id: "resume", name: "Resume" },
       { id: "contact", name: "Contact" },
     ]
 
