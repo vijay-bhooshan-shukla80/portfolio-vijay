@@ -43,7 +43,7 @@ export function AboutSection() {
             <motion.div variants={staggerFast} initial="hidden" whileInView="show" viewport={viewportOnce} className="space-y-6">
               <motion.h3 variants={fadeUp} className="mb-4 text-xl font-bold text-white">Experience Snapshot</motion.h3>
               {[
-                { role: "Automation Engineer & MERN Stack Developer", company: "9JOBS Application Services, Delhi", period: "Dec 2025 - Present", description: "Developing scalable automation systems, web scraping workflows, data extraction tools, and responsive MERN applications." },
+                { role: "Automation Engineer & MERN Stack Developer", company: "9JOBS Application Services", period: "Dec 2025 - Present", description: "Developing scalable automation systems, web scraping workflows, data extraction tools, and responsive MERN applications." },
                 { role: "MERN Stack Developer", company: "Pragallabh Private Limited (OPC), Indore", period: "Nov 2024 - Nov 2025", description: "Designed React interfaces, implemented Node and Express APIs, optimized MongoDB operations, and supported deployment workflows." },
               ].map((exp) => (
                 <motion.div key={exp.role} variants={fadeUp} whileHover={{ x: 6 }} className="relative border-l-2 border-primary/70 pl-6">

@@ -10,7 +10,7 @@ import { buttonTap, fadeUp, iconBounce, scaleUp, sectionReveal, slideLeft, slide
 const experience = [
   {
     title: "Automation Engineer & MERN Stack Developer",
-    company: "9JOBS Application Services, Delhi",
+    company: "9JOBS Application Services",
     period: "Dec 2025 - Present",
     description: "Developed Python and Selenium WebDriver automation systems, web scraping and data extraction workflows, and responsive MERN applications with optimized REST APIs.",
   },

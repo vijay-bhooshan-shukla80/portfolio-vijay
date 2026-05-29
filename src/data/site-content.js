@@ -2,7 +2,7 @@ export const profile = {
   name: "Vijay Bhooshan Shukla",
   brand: "Vijay Bhooshan Shukla",
   title: "Automation Engineer & MERN Stack Developer",
-  location: "Delhi, India",
+  location: "India",
   phone: "8052869880",
   email: "as7612399@gmail.com",
   linkedin: "https://www.linkedin.com/in/vijay-bhooshan-shukla/",
