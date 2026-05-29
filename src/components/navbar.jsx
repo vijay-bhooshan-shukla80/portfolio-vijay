@@ -1,7 +1,7 @@
 "use client"
 
 import { AnimatePresence, motion } from "framer-motion"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Download } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -155,8 +155,14 @@ export function Navbar() {
         </div>
 
         <div className="hidden items-center gap-3 md:flex">
-          <motion.a {...buttonTap} href={profile.resumeUrl} download className="rounded-full bg-primary px-6 py-2.5 font-medium text-white shadow-[0_12px_32px_rgba(255,140,75,0.30)] transition-all hover:opacity-100">
-            Download Resume
+          <motion.a 
+            {...buttonTap} 
+            href={profile.resumeUrl} 
+            download 
+            className="flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(255,140,75,0.25)] transition-all hover:opacity-100 whitespace-nowrap"
+          >
+            <Download size={14} />
+            <span>Download CV</span>
           </motion.a>
         </div>
 
