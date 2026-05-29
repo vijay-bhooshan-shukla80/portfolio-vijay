@@ -17,6 +17,7 @@ export function ContactFormSection() {
   const [formData, setFormData] = useState(initialForm)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState("")
 
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -27,18 +28,47 @@ export function ContactFormSection() {
     event.preventDefault()
     setIsSubmitting(true)
     setIsSubmitted(false)
+    setSubmitError("")
 
-    await new Promise((resolve) => window.setTimeout(resolve, 1400))
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || profile.web3FormsAccessKey
 
-    const subject = encodeURIComponent(`Portfolio inquiry from ${formData.name || "a recruiter"}`)
-    const message = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\nProject Type: ${formData.projectType}\n\nMessage:\n${formData.message}`,
-    )
+    if (!accessKey || accessKey === "YOUR_WEB3FORMS_ACCESS_KEY") {
+      setSubmitError("Form is not configured. Please add Web3Forms Access Key in site-content.js.")
+      setIsSubmitting(false)
+      return
+    }
 
-    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${message}`
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    setFormData(initialForm)
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: formData.name,
+          email: formData.email,
+          subject: `Portfolio Inquiry from ${formData.name}`,
+          project_type: formData.projectType,
+          message: formData.message,
+        }),
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        setIsSubmitted(true)
+        setFormData(initialForm)
+      } else {
+        setSubmitError(result.message || "Failed to submit. Please try again.")
+      }
+    } catch (error) {
+      console.error(error)
+      setSubmitError("Network error. Please check your connection and try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -120,7 +150,13 @@ export function ContactFormSection() {
 
           {isSubmitted ? (
             <motion.p variants={fadeUp} initial="hidden" animate="show" className="mt-4 rounded-2xl border border-emerald-400/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">
-              Your email draft was prepared successfully. You can now send it from your mail app.
+              Thank you! Your message has been sent successfully. I will get back to you soon.
+            </motion.p>
+          ) : null}
+
+          {submitError ? (
+            <motion.p variants={fadeUp} initial="hidden" animate="show" className="mt-4 rounded-2xl border border-rose-400/20 bg-rose-500/10 px-4 py-3 text-sm text-rose-200">
+              {submitError}
             </motion.p>
           ) : null}
         </motion.form>

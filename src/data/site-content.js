@@ -12,6 +12,7 @@ export const profile = {
   upwork: "https://www.upwork.com",
   portfolio: "https://site.veloxn.com/",
   heroImage: "/images/laptop_developer.png",
+  web3FormsAccessKey: "YOUR_WEB3FORMS_ACCESS_KEY", // Get a free access key from https://web3forms.com/
 }
 
 export const navItems = [
