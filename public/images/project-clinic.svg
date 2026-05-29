@@ -1,0 +1,28 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" rx="40" fill="#090412"/>
+  <rect x="40" y="40" width="1120" height="820" rx="32" fill="url(#bg)" stroke="rgba(255,255,255,0.15)"/>
+  <circle cx="980" cy="180" r="150" fill="#FF76D8" fill-opacity="0.18"/>
+  <circle cx="230" cy="720" r="170" fill="#5A59FF" fill-opacity="0.15"/>
+  <rect x="100" y="120" width="240" height="54" rx="27" fill="rgba(255,255,255,0.08)"/>
+  <text x="140" y="154" fill="#F5EEFF" font-size="26" font-family="Arial, sans-serif">Healthcare CRM</text>
+  <text x="100" y="320" fill="#FFFFFF" font-size="84" font-weight="700" font-family="Arial, sans-serif">ClinicFlow</text>
+  <text x="100" y="390" fill="#C7B8E7" font-size="34" font-family="Arial, sans-serif">Modern software delivery for ambitious teams</text>
+  <rect x="100" y="470" width="420" height="180" rx="24" fill="rgba(14, 11, 25, 0.72)" stroke="rgba(255,255,255,0.12)"/>
+  <rect x="560" y="280" width="500" height="300" rx="26" fill="rgba(14, 11, 25, 0.82)" stroke="rgba(255,255,255,0.12)"/>
+  <rect x="150" y="530" width="150" height="18" rx="9" fill="#FFFFFF" fill-opacity="0.85"/>
+  <rect x="150" y="570" width="250" height="12" rx="6" fill="#FFFFFF" fill-opacity="0.28"/>
+  <rect x="150" y="600" width="210" height="12" rx="6" fill="#FFFFFF" fill-opacity="0.18"/>
+  <rect x="620" y="340" width="120" height="120" rx="24" fill="#FF76D8" fill-opacity="0.85"/>
+  <rect x="770" y="340" width="230" height="24" rx="12" fill="#FFFFFF" fill-opacity="0.9"/>
+  <rect x="770" y="390" width="180" height="12" rx="6" fill="#FFFFFF" fill-opacity="0.25"/>
+  <rect x="770" y="420" width="200" height="12" rx="6" fill="#FFFFFF" fill-opacity="0.18"/>
+  <rect x="770" y="470" width="160" height="44" rx="22" fill="#FF76D8"/>
+  <text x="810" y="499" fill="#0B0613" font-size="22" font-weight="700" font-family="Arial, sans-serif">Preview</text>
+  <defs>
+    <linearGradient id="bg" x1="40" y1="40" x2="1160" y2="860" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3F1957"/>
+      <stop offset="0.5" stop-color="#1A1949"/>
+      <stop offset="1" stop-color="#0E4A80"/>
+    </linearGradient>
+  </defs>
+</svg>
