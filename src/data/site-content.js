@@ -1,22 +1,23 @@
 export const profile = {
   name: "Vijay Bhooshan Shukla",
-  brand: "Vijay Bhooshan Shukla",
-  title: "Automation Engineer & MERN Stack Developer",
-  location: "India",
+  brand: "Vijay",
+  title: "Full Stack Developer | AI Automation Engineer | Prompt Engineer",
+  location: "Delhi, India",
   phone: "8052869880",
   email: "as7612399@gmail.com",
   linkedin: "https://www.linkedin.com/in/vijay-bhooshan-shukla/",
   github: "https://github.com/as7212399/",
-  resumeUrl: "/Vijay-Bhooshan-Shukla-Resume.pdf",
+  resumeUrl: "/Vijay-rr.pdf",
   resumeDriveUrl: "https://drive.google.com/file/d/1ciGs_4_19B3dDUrSHMbLlkFKFi6S4kCv/view?usp=sharing",
   upwork: "https://www.upwork.com",
   portfolio: "https://site.veloxn.com/",
-  heroImage: "/images/laptop_developer.png",
+  heroImage: "/images/vijay-professional.png",
   web3FormsAccessKey: "YOUR_WEB3FORMS_ACCESS_KEY", // Get a free access key from https://web3forms.com/
 }
 
 export const navItems = [
   { name: "Home", href: "/" },
+  { name: "Who We Are", href: "/about" },
   { name: "Services", href: "/services" },
   { name: "Projects", href: "/projects" },
   { name: "Testimonials", href: "/testimonials" },
@@ -29,57 +30,57 @@ export const socialLinks = [
 ]
 
 export const heroStats = [
-  { number: "1.7+", label: "Years MERN & Automation Experience" },
-  { number: "8+", label: "Web, AI, and Automation Builds" },
-  { number: "100%", label: "Responsive UI and API Delivery" },
+  { number: "2", label: "Years Experience" },
+  { number: "500+", label: "LinkedIn Applications Automated" },
+  { number: "30+", label: "AI ATS Resumes Generated" },
 ]
 
 export const services = [
   {
     title: "Full Stack Web Development",
     description:
-      "Build scalable full-stack web applications with React.js, Next.js, Node.js, Express.js, MongoDB, and clean REST API architecture.",
-    features: ["React / Next.js UI", "Node + Express APIs", "MongoDB data models"],
+      "Develop scalable web applications using React.js, Next.js, Node.js, Express.js, MongoDB, JavaScript, and REST APIs covering frontend, backend, and database workflows.",
+    features: ["React.js & Next.js UI", "Node.js & Express APIs", "MongoDB Data Models"],
     image: "/img/webdev.jpg",
     href: "/services",
   },
   {
-    title: "MERN Stack Applications",
+    title: "AI Development & Integration",
     description:
-      "Create maintainable MERN products for business workflows, ATS-friendly platforms, dashboards, and customer-facing software.",
-    features: ["Secure CRUD flows", "Responsive UI/UX", "Deployment-ready builds"],
+      "Integrate Generative AI capabilities, AI API models, and apply structured Prompt Engineering for AI-assisted development, ATS resume platforms, and content generation.",
+    features: ["Generative AI", "AI API Integration", "Prompt Engineering"],
     image: "/img/modern.jpg",
     href: "/services",
   },
   {
-    title: "Automation Solutions",
+    title: "AI Automation & Scraping",
     description:
-      "Reduce repetitive work with Python, Selenium WebDriver, ChromeDriver, web scraping, browser automation, and data extraction workflows.",
-    features: ["Selenium WebDriver", "Web scraping", "Workflow automation"],
+      "Automate complex browser workflows, job application submission, form filling, and data extraction using Python, Selenium WebDriver, and ChromeDriver.",
+    features: ["Selenium WebDriver", "Python Automation", "Web Scraping"],
     image: "/img/auto.jpg",
     href: "/services",
   },
   {
-    title: "Portfolio & Business Websites",
+    title: "Responsive Web Design",
     description:
-      "Launch polished business and company websites with optimized UI/UX, SEO performance, and cross-device compatibility.",
-    features: ["SEO-ready pages", "Mobile-first design", "Cross-browser support"],
+      "Build clean, mobile-friendly interfaces with reusable React components, modern UI/UX principles, technical SEO, and cross-browser usability.",
+    features: ["SEO Optimization", "Responsive UI", "Cross-Browser Compatibility"],
     image: "/img/react.jpg",
     href: "/services",
   },
   {
-    title: "API Integration",
+    title: "Deployment & Optimization",
     description:
-      "Connect frontend products to reliable REST APIs, external services, backend logic, and scalable database operations.",
-    features: ["REST API development", "Postman testing", "Performance tuning"],
+      "Deploy production-ready web and AI applications on Vercel, Render, Railway, Netlify, and DigitalOcean with hosting configuration and performance tuning.",
+    features: ["Vercel & Render", "Railway & Netlify", "DigitalOcean Deployment"],
     image: "/img/api.jpg",
     href: "/services",
   },
   {
-    title: "Website Maintenance & Support",
+    title: "API & Database Architecture",
     description:
-      "Keep applications stable after launch with debugging, testing, UI improvements, GitHub workflows, and iteration support.",
-    features: ["Debugging", "Feature updates", "Git / GitHub workflow"],
+      "Design and integrate RESTful APIs, authentication flows, database schema operations, form handling, Postman testing, and debugging.",
+    features: ["RESTful APIs", "MongoDB Atlas", "Postman & Debugging"],
     image: "/img/software.jpg",
     href: "/services",
   },
@@ -89,56 +90,38 @@ export const projects = [
   {
     title: "LinkedIn Automation Job Applier System",
     description:
-      "A Selenium and Python automation system for LinkedIn job searching, resume uploads, application submission workflows, and exception handling.",
+      "Automated 500+ LinkedIn job applications using Python and Selenium WebDriver. Implemented job search, filtering, resume uploads, application submission, exception handling, retry logic, and explicit waits.",
     image: "/img/linkauto.jpg",
-    tags: ["Python", "Selenium", "ChromeDriver", "Automation"],
+    tags: ["Python", "Selenium", "WebDriver", "ChromeDriver"],
     liveUrl: "https://www.linkedin.com/in/vijay-bhooshan-shukla/",
     githubUrl: "",
     demoLabel: "View Profile",
   },
   {
-    title: "AI Rover Resume Builder",
+    title: "AI Rover — AI Resume Builder",
     description:
-      "An AI-powered ATS-friendly resume builder with dynamic generation, AI suggestions, resume optimization, responsive templates, and parsing compatibility.",
-    image: "/img/jobs.jpg",
+      "AI-powered ATS-friendly resume builder developed using React.js and Python. Generated 30+ professional resumes with AI content suggestions, customizable templates, real-time preview, and ATS-compatible formatting.",
+    image: "/projects/rover-resume.png",
     tags: ["React.js", "Python", "AI Integration", "ATS"],
+    liveUrl: "https://rover-resume.vercel.app/",
+    githubUrl: "",
+  },
+  {
+    title: "9JOBS — Corporate & Job Services Platform",
+    description:
+      "Corporate and job-services platform developed using React.js, Next.js, JavaScript, Node.js, and REST APIs. Features responsive UI, reusable components, job-search interfaces, forms, and production deployment.",
+    image: "/projects/9jobs.png",
+    tags: ["React.js", "Next.js", "Node.js", "REST APIs"],
     liveUrl: "https://9jobs.co/",
     githubUrl: "",
   },
   {
-    title: "Veloxn Software Company Website",
+    title: "Modern Property — Real Estate Web Platform",
     description:
-      "A responsive MERN software company website with dynamic content, backend APIs, SEO optimization, and cross-device compatibility.",
-    image: "/img/veloxn.jpg",
-    tags: ["MongoDB", "Express.js", "React.js", "Node.js"],
-    liveUrl: "https://site.veloxn.com/",
-    githubUrl: "",
-  },
-  {
-    title: "9JOBS Application Services Platform",
-    description:
-      "A full-stack job services platform focused on ATS resume support, automation workflows, lead capture, and scalable backend performance.",
-    image: "/img/jobs.jpg",
-    tags: ["React.js", "Node.js", "MongoDB", "REST APIs"],
-    liveUrl: "https://9jobs.co/",
-    githubUrl: "",
-  },
-  {
-    title: "Modern Properties Website",
-    description:
-      "A full-stack real estate platform with listings, search flows, lead generation, responsive UI, and business-focused user experience.",
-    image: "/img/modern.jpg",
-    tags: ["React", "Node.js", "MongoDB", "Express"],
+      "Responsive real-estate platform built using React.js, Next.js, JavaScript, and REST APIs. Features property-focused interfaces, reusable components, search-oriented layouts, forms, SEO, and performance optimization.",
+    image: "/projects/modern-property.png",
+    tags: ["React.js", "Next.js", "REST APIs", "Responsive Design"],
     liveUrl: "https://modernproperties.co/",
-    githubUrl: "",
-  },
-  {
-    title: "Build Urban Home Website",
-    description:
-      "A real estate and construction website designed to showcase services, improve trust, and generate qualified client inquiries.",
-    image: "/img/real.jpg",
-    tags: ["React", "Node.js", "MongoDB"],
-    liveUrl: "https://biuld-urban-homes.netlify.app/",
     githubUrl: "",
   },
 ]
@@ -152,71 +135,51 @@ export const blogPosts = []
 export const testimonials = [
   {
     name: "9JOBS Application Services",
-    role: "Automation & Full Stack Work",
+    role: "Corporate & Job Platform Delivery",
     quote:
-      "Reliable browser automation workflows and full-stack features were built with strong attention to speed, debugging, and practical usability.",
-    project: "Automation systems and MERN platform work",
-    outcome: "Reduced manual workflow effort and improved application handling",
+      "Developed responsive interfaces, full-stack features, and browser automation tools with focus on speed, reliability, and usability.",
+    project: "9JOBS Platform & Automation Workflows",
+    outcome: "Streamlined job-service operations and application workflows",
     rating: 4.9,
     image: "/images/testimonial-daniel.svg",
   },
   {
-    name: "Pragallabh Private Limited",
-    role: "MERN Development",
+    name: "Modern Property Platform",
+    role: "Real Estate Web Architecture",
     quote:
-      "He handled responsive React interfaces, backend APIs, MongoDB operations, and deployment support while keeping the code maintainable.",
-    project: "Responsive MERN web solutions",
-    outcome: "Improved UI responsiveness and backend reliability",
+      "Delivered responsive property interfaces, search layouts, reusable components, REST API integration, and SEO optimization.",
+    project: "Modern Property Platform",
+    outcome: "Enhanced platform performance, accessibility, and UI responsiveness",
     rating: 4.8,
     image: "/images/testimonial-sophia.svg",
   },
   {
-    name: "AI Resume Platform User",
-    role: "ATS Resume Builder",
+    name: "AI Rover Resume Builder",
+    role: "AI Product Development",
     quote:
-      "The AI resume builder experience felt clear, modern, and useful for improving resume content while keeping ATS compatibility in mind.",
+      "The AI resume builder generated 30+ ATS-friendly resumes with real-time editing, customizable templates, and machine-readable output.",
     project: "AI Rover Resume Builder",
-    outcome: "Faster resume generation with better optimization guidance",
-    rating: 4.8,
+    outcome: "Fast, ATS-compatible resume creation with AI suggestions",
+    rating: 4.9,
     image: "/images/testimonial-mia.svg",
   },
-   {
-    name: "LinkedIn Automation User",
-    role: "Job Application Workflow",
+  {
+    name: "LinkedIn Automation System",
+    role: "Browser Automation",
     quote:
-      "The automation system made repetitive job searching, resume uploading, and application submission faster and easier to manage.",
+      "Automated over 500 job applications using Python, Selenium WebDriver, explicit waits, and configurable search scripts.",
     project: "LinkedIn Automation Job Applier System",
-    outcome: "Saved time through browser automation and exception handling",
+    outcome: "Saved manual submission time with robust exception handling",
     rating: 4.8,
     image: "/images/testimonial-daniel.svg",
-  },
-  {
-    name: "Veloxn Website Stakeholder",
-    role: "Company Website Delivery",
-    quote:
-      "The website delivered a clean software-company presentation with responsive layouts, dynamic content structure, and SEO-conscious implementation.",
-    project: "Veloxn Software Company Website",
-    outcome: "Stronger service presentation and cross-device experience",
-    rating: 4.9,
-    image: "/images/testimonial-sophia.svg",
-  },
-  {
-    name: "Business Website Client",
-    role: "Frontend and Backend Support",
-    quote:
-      "Communication stayed clear, implementation issues were solved quickly, and the delivery had a practical full-stack mindset.",
-    project: "Business websites and MERN features",
-    outcome: "Cleaner delivery process and stable product updates",
-    rating: 4.8,
-    image: "/images/testimonial-mia.svg",
   },
 ]
 
 export const resumeHighlights = [
-  "Automation Engineer and MERN Stack Developer with 1.7+ years of practical experience",
-  "Built browser automation systems, AI resume tools, company websites, and full-stack platforms",
-  "Skilled in React.js, Next.js, Node.js, Express.js, MongoDB, Python, Selenium, and REST APIs",
-  "Strong in communication, problem solving, team collaboration, debugging, and deployment workflows",
+  "Automation Engineer & MERN Stack Developer with 2 years of hands-on experience at 9JOBS Application Services, Delhi.",
+  "Built LinkedIn Automation Job Applier System (500+ applications automated) and AI Rover Resume Builder (30+ resumes generated).",
+  "Developed 9JOBS Corporate & Job Services Platform and Modern Property Real Estate Web Platform.",
+  "Proficient in React.js, Next.js, Node.js, Express.js, MongoDB, Python, Selenium, REST APIs, Prompt Engineering, SEO, and server deployment.",
 ]
 
 export const contactMethods = [

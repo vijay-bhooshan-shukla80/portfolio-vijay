@@ -1,100 +1,50 @@
-"use client"
-
-import { useEffect, useState, useRef } from "react"
-import { motion, useSpring, useMotionValue } from "framer-motion"
+import { useEffect, useRef } from 'react'
 
 export function CustomCursor() {
-  const [isHovering, setIsHovering] = useState(false)
-  const [isClicking, setIsClicking] = useState(false)
-  const [isVisible, setIsVisible] = useState(false)
-  const cursorRef = useRef(null)
-
-  const cursorX = useMotionValue(-100)
-  const cursorY = useMotionValue(-100)
-
-  const springConfig = { damping: 25, stiffness: 400 }
-  const cursorXSpring = useSpring(cursorX, springConfig)
-  const cursorYSpring = useSpring(cursorY, springConfig)
-
+  const ref = useRef(null)
   useEffect(() => {
-    const moveCursor = (e) => {
-      setIsVisible(true)
-      cursorX.set(e.clientX)
-      cursorY.set(e.clientY)
+    const media = window.matchMedia('(min-width: 768px) and (pointer: fine) and (prefers-reduced-motion: no-preference)')
+    const el = ref.current, root = document.documentElement
+    let frame = 0, x = 0, y = 0, active = false
+    function update() {
+      frame = 0
+      const target = document.elementFromPoint(x, y)
+      const visible = media.matches && active && target && !target.closest('input,textarea,select,[contenteditable="true"],iframe')
+      root.classList.toggle('pf-custom-pointer', Boolean(visible))
+      el.style.opacity = visible ? '1' : '0'
+      el.classList.toggle('is-hover', Boolean(target?.closest('a,button,summary,[role="button"],[data-cursor-text]')))
+      el.style.transform = `translate3d(${x}px,${y}px,0)`
     }
-
-    const hideCursor = () => setIsVisible(false)
-
-    const handleMouseDown = () => setIsClicking(true)
-    const handleMouseUp = () => setIsClicking(false)
-
-    const handleMouseOver = (e) => {
-      const target = e.target
-      if (
-        target.tagName === "A" ||
-        target.tagName === "BUTTON" ||
-        target.closest("a") ||
-        target.closest("button") ||
-        target.classList.contains("cursor-pointer") ||
-        target.closest(".cursor-pointer")
-      ) {
-        setIsHovering(true)
-      }
+    function schedule() { if (!frame) frame = requestAnimationFrame(update) }
+    function move(event) {
+      if (event.pointerType === 'touch') { hide(); return }
+      x = event.clientX; y = event.clientY; active = true; schedule()
     }
-
-    const handleMouseOut = (e) => {
-      const target = e.target
-      if (
-        target.tagName === "A" ||
-        target.tagName === "BUTTON" ||
-        target.closest("a") ||
-        target.closest("button") ||
-        target.classList.contains("cursor-pointer") ||
-        target.closest(".cursor-pointer")
-      ) {
-        setIsHovering(false)
-      }
-    }
-
-    window.addEventListener("mousemove", moveCursor)
-    window.addEventListener("mouseleave", hideCursor)
-    document.addEventListener("visibilitychange", hideCursor)
-    window.addEventListener("mousedown", handleMouseDown)
-    window.addEventListener("mouseup", handleMouseUp)
-    document.addEventListener("mouseover", handleMouseOver)
-    document.addEventListener("mouseout", handleMouseOut)
-
+    function hide() { active = false; el.style.opacity = '0'; root.classList.remove('pf-custom-pointer'); el.classList.remove('is-pressed') }
+    function press(event) { if (event.pointerType !== 'touch') el.classList.add('is-pressed') }
+    function release() { el.classList.remove('is-pressed') }
+    document.addEventListener('pointermove', move, { passive: true })
+    document.addEventListener('pointerdown', press)
+    document.addEventListener('pointerup', release)
+    document.addEventListener('pointercancel', hide)
+    document.addEventListener('scroll', schedule, { passive: true, capture: true })
+    root.addEventListener('pointerleave', hide)
+    window.addEventListener('blur', hide)
+    media.addEventListener('change', hide)
     return () => {
-      window.removeEventListener("mousemove", moveCursor)
-      window.removeEventListener("mouseleave", hideCursor)
-      document.removeEventListener("visibilitychange", hideCursor)
-      window.removeEventListener("mousedown", handleMouseDown)
-      window.removeEventListener("mouseup", handleMouseUp)
-      document.removeEventListener("mouseover", handleMouseOver)
-      document.removeEventListener("mouseout", handleMouseOut)
+      cancelAnimationFrame(frame); hide()
+      document.removeEventListener('pointermove', move)
+      document.removeEventListener('pointerdown', press)
+      document.removeEventListener('pointerup', release)
+      document.removeEventListener('pointercancel', hide)
+      document.removeEventListener('scroll', schedule, true)
+      root.removeEventListener('pointerleave', hide)
+      window.removeEventListener('blur', hide)
+      media.removeEventListener('change', hide)
     }
-  }, [cursorX, cursorY])
-
-  return (
-    <>
-      <motion.div ref={cursorRef} className="fixed top-0 left-0 pointer-events-none z-[9999]" style={{ x: cursorXSpring, y: cursorYSpring }}>
-        <motion.div
-          className="relative -translate-x-1/2 -translate-y-1/2"
-          animate={{ scale: isClicking ? 0.8 : isHovering ? 1.35 : 1, opacity: isVisible ? 1 : 0 }}
-          transition={{ duration: 0.15 }}
-        >
-          <motion.div className="h-10 w-10 rounded-full border-2 border-white/80" animate={{ scale: isHovering ? 1.15 : 1, opacity: isHovering ? 0.75 : 0.55 }} transition={{ duration: 0.2 }} />
-          <motion.div className="absolute top-1/2 left-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white" animate={{ scale: isHovering ? 0 : 1 }} transition={{ duration: 0.15 }} />
-        </motion.div>
-      </motion.div>
-      <motion.div className="fixed top-0 left-0 pointer-events-none z-[9998]" style={{ x: useSpring(cursorX, { damping: 50, stiffness: 200 }), y: useSpring(cursorY, { damping: 50, stiffness: 200 }) }}>
-        <motion.div
-          className="h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full"
-          style={{ background: "radial-gradient(circle, oklch(0.7 0.25 285 / 0.22) 0%, transparent 72%)" }}
-          animate={{ scale: isHovering ? 1.6 : 1, opacity: isVisible ? (isHovering ? 0.45 : 0.24) : 0 }}
-          transition={{ duration: 0.25 }}
-        />
-      </motion.div>
-    </>
-  )
+  }, [])
+  return <div ref={ref} className="pf-cursor" aria-hidden="true">
+    <svg className="pf-cursor-arrow" viewBox="0 0 32 40" fill="white" stroke="#101010" strokeWidth="1.6" strokeLinejoin="round"><path d="M3 2 27 23 17 24 22 35 16 38 11 27 3 34Z"/></svg>
+    <svg className="pf-cursor-hand" viewBox="0 0 40 44" fill="white" stroke="#101010" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 23V6c0-5 7-5 7 0v13-4c0-4 6-4 6 0v5-3c0-4 6-4 6 0v5-2c0-4 6-4 6 0v10c0 5-3 8-4 11H16c-1-4-4-7-6-10l-6-8c-3-4 2-7 5-4l3 4Z"/><path d="M19 20v8m6-7v7m6-5v5"/></svg>
+  </div>
 }

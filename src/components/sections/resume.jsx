@@ -1,78 +1,224 @@
 "use client"
 
-import { motion, useInView } from "framer-motion"
-import { useRef } from "react"
-import { Download, Briefcase, GraduationCap, Award, FileText, ArrowRight } from "lucide-react"
-import Link from "next/link"
-import { profile, resumeHighlights } from "@/data/site-content"
-import { buttonTap, fadeUp, iconBounce, scaleUp, sectionReveal, slideLeft, slideRight, staggerContainer, staggerFast, viewportOnce } from "@/lib/motion"
+import { useEffect, useRef } from "react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { Briefcase, GraduationCap, Award, CheckCircle2 } from "lucide-react"
 
-const experience = [
+gsap.registerPlugin(ScrollTrigger)
+
+const experiences = [
   {
     title: "Automation Engineer & MERN Stack Developer",
-    company: "9JOBS Application Services",
-    period: "Dec 2025 - Present",
-    description: "Developed Python and Selenium WebDriver automation systems, web scraping and data extraction workflows, and responsive MERN applications with optimized REST APIs.",
-  },
-  {
-    title: "MERN Stack Developer",
-    company: "Pragallabh Private Limited (OPC), Indore",
-    period: "Nov 2024 - Nov 2025",
-    description: "Designed React.js interfaces, implemented Node.js and Express.js backend APIs, optimized MongoDB CRUD operations, and supported debugging, testing, and deployment.",
+    company: "9JOBS Application Services, Delhi",
+    period: "Oct 2024 – Present",
+    desc: "Develop and maintain the 9JOBS corporate and job-services website, build and enhance Modern Property real-estate platform, build full-stack web applications using React.js, Next.js, Node.js, Express.js, MongoDB, JavaScript, HTML5, CSS3, and REST APIs, apply Prompt Engineering for AI-assisted development, design authentication flows and database operations, and optimize websites for performance, SEO, cross-browser compatibility, and server deployment.",
+    highlights: ["9JOBS & Modern Property", "MERN Stack & REST APIs", "Prompt Engineering & Deployment"],
   },
 ]
 
 const education = [
   {
-    degree: "Master of Computer Application",
-    institution: "Galgotias University, Greater Noida",
-    period: "July 2022 - June 2024",
-    description: "Advanced computer application study with practical focus on software development, web technologies, and application architecture.",
+    degree: "Master of Computer Application (MCA)",
+    institution: "Galgotias University – Greater Noida",
+    period: "July 2022 – June 2024",
+    desc: "Master's degree focused on computer application architecture, advanced web development, and software engineering.",
   },
   {
-    degree: "Bachelor of Computer Application",
+    degree: "Bachelor of Computer Application (BCA)",
     institution: "Integral University, Lucknow",
-    period: "June 2019 - July 2022",
-    description: "Built the foundation for programming, databases, web development, and problem-solving through computer application coursework.",
+    period: "June 2019 – July 2022",
+    desc: "Bachelor's degree covering computer science fundamentals, programming languages, database management, and web technologies.",
   },
 ]
 
-const certifications = [
+const certs = [
   "Microsoft Azure",
   "Advanced MERN Stack with Generative AI",
-  "Browser automation with Selenium WebDriver and ChromeDriver",
-  "Git, GitHub, Postman, VS Code, debugging, and web scraping workflows",
 ]
-
-const skills = [
-  { name: "React.js / Next.js", level: 90 },
-  { name: "Node.js / Express.js", level: 86 },
-  { name: "MongoDB", level: 84 },
-  { name: "Python / Selenium", level: 86 },
-  { name: "REST APIs / API Integration", level: 84 },
-  { name: "Responsive UI / SEO", level: 90 },
-]
-
-function SectionIcon({ children }) {
-  return <div className="icon-highlight flex h-12 w-12 items-center justify-center rounded-xl">{children}</div>
-}
 
 export function ResumeSection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, viewportOnce)
+  const sectionRef = useRef(null)
+  const lineRef = useRef(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // 1. GSAP ScrollTrigger Scrubbed Vertical Line Growth (Rule 34)
+      if (lineRef.current) {
+        gsap.fromTo(
+          lineRef.current,
+          { scaleY: 0 },
+          {
+            scaleY: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".timeline-container",
+              start: "top 75%",
+              end: "bottom 75%",
+              scrub: true,
+            },
+          }
+        )
+      }
+
+      // 2. Timeline Card Stagger Reveal
+      const cards = gsap.utils.toArray(".timeline-card-item")
+      gsap.fromTo(
+        cards,
+        { opacity: 0, x: -35 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.7,
+          stagger: 0.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".timeline-container",
+            start: "top 80%",
+            once: true,
+          },
+        }
+      )
+
+      // 3. Education Card Stagger Reveal
+      const eduCards = gsap.utils.toArray(".edu-card-item")
+      gsap.fromTo(
+        eduCards,
+        { opacity: 0, x: 35 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.7,
+          stagger: 0.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".edu-container",
+            start: "top 80%",
+            once: true,
+          },
+        }
+      )
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
 
   return (
-    <motion.section id="resume" className="relative overflow-hidden py-24" {...sectionReveal}>
-      <div className="absolute bottom-0 right-1/4 h-96 w-96 rounded-full bg-primary/10 blur-3xl animate-float-delay" />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6" ref={ref}>
-        <motion.div variants={staggerContainer} initial="hidden" animate={isInView ? "show" : "hidden"} className="mb-16 text-center">
-          <motion.span variants={fadeUp} className="text-sm font-medium uppercase tracking-wider text-white">Resume</motion.span>
-          <motion.h2 variants={fadeUp} className="mt-4 text-3xl font-bold text-balance text-white md:text-4xl lg:text-5xl">{profile.name} with a <span className="gradient-text">MERN and automation delivery mindset</span></motion.h2>
-          <motion.p variants={fadeUp} className="mx-auto mt-6 max-w-2xl text-lg text-white/84 text-pretty">Focused on scalable full-stack web applications, browser automation systems, AI-powered platforms, responsive UI, REST APIs, and reliable deployment workflows.</motion.p>
-        </motion.div>
-        <motion.div variants={staggerFast} initial="hidden" animate={isInView ? "show" : "hidden"} className="mb-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">{resumeHighlights.map((item) => <motion.div key={item} variants={scaleUp} whileHover={{ y: -6 }} className="glass motion-border rounded-2xl border border-white/10 p-5 text-sm text-white/82">{item}</motion.div>)}</motion.div>
-        <div className="grid gap-12 lg:grid-cols-2"><motion.div variants={slideLeft} initial="hidden" animate={isInView ? "show" : "hidden"} className="space-y-12"><div><div className="mb-6 flex items-center gap-3"><motion.div variants={iconBounce} initial="rest" whileHover="hover"><SectionIcon><Briefcase className="h-6 w-6" /></SectionIcon></motion.div><h3 className="text-2xl font-bold text-white">Experience</h3></div><motion.div variants={staggerFast} initial="hidden" animate={isInView ? "show" : "hidden"} className="space-y-6">{experience.map((item) => <motion.div key={item.title} variants={fadeUp} whileHover={{ x: 4 }} className="glass motion-border rounded-2xl border border-white/10 p-6"><div className="mb-2 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"><h4 className="text-lg font-semibold text-white">{item.title}</h4><span className="w-fit rounded-full bg-white/[0.08] px-3 py-1 text-sm font-semibold text-white ring-1 ring-white/8">{item.period}</span></div><p className="mb-2 text-sm text-white/80">{item.company}</p><p className="text-sm text-white/82">{item.description}</p></motion.div>)}</motion.div></div><div><div className="mb-6 flex items-center gap-3"><motion.div variants={iconBounce} initial="rest" whileHover="hover"><SectionIcon><GraduationCap className="h-6 w-6" /></SectionIcon></motion.div><h3 className="text-2xl font-bold text-white">Education</h3></div><motion.div variants={staggerFast} initial="hidden" animate={isInView ? "show" : "hidden"} className="space-y-6">{education.map((item) => <motion.div key={item.degree} variants={fadeUp} whileHover={{ x: 4 }} className="glass motion-border rounded-2xl border border-white/10 p-6"><div className="mb-2 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"><h4 className="text-lg font-semibold text-white">{item.degree}</h4><span className="w-fit rounded-full bg-white/[0.08] px-3 py-1 text-sm font-semibold text-white ring-1 ring-white/8">{item.period}</span></div><p className="mb-2 text-sm text-white/80">{item.institution}</p><p className="text-sm text-white/82">{item.description}</p></motion.div>)}</motion.div></div></motion.div><motion.div variants={slideRight} initial="hidden" animate={isInView ? "show" : "hidden"} className="space-y-12"><div className="glass motion-border rounded-3xl border border-white/10 p-8"><div className="mb-6 flex items-center gap-3"><motion.div variants={iconBounce} initial="rest" whileHover="hover"><SectionIcon><FileText className="h-6 w-6" /></SectionIcon></motion.div><h3 className="text-2xl font-bold text-white">Skills</h3></div><div className="space-y-5">{skills.map((skill, index) => <motion.div key={skill.name} variants={fadeUp} initial="hidden" animate={isInView ? "show" : "hidden"}><div className="mb-2 flex justify-between gap-4"><span className="font-medium text-white">{skill.name}</span><span className="shrink-0 text-white/86">{skill.level}%</span></div><div className="skill-track h-3 overflow-hidden rounded-full"><motion.div className="skill-fill h-full rounded-full" initial={{ width: 0 }} whileInView={{ width: `${skill.level}%` }} viewport={viewportOnce} transition={{ duration: 1, delay: 0.12 + index * 0.08 }} /></div></motion.div>)}</div></div><div className="glass motion-border rounded-3xl border border-white/10 p-8"><div className="mb-6 flex items-center gap-3"><motion.div variants={iconBounce} initial="rest" whileHover="hover"><SectionIcon><Award className="h-6 w-6" /></SectionIcon></motion.div><h3 className="text-2xl font-bold text-white">Certifications & Tools</h3></div><motion.div variants={staggerFast} initial="hidden" animate={isInView ? "show" : "hidden"} className="space-y-3">{certifications.map((cert) => <motion.div key={cert} variants={fadeUp} whileHover={{ x: 4 }} className="flex items-center gap-3 rounded-xl bg-white/[0.04] p-4 transition-colors hover:bg-white/[0.06]"><div className="accent-gradient-bg h-2.5 w-2.5 rounded-full shadow-[0_0_14px_rgba(255,121,196,0.28)]" /><span className="text-white/84">{cert}</span></motion.div>)}</motion.div></div><motion.div variants={staggerFast} initial="hidden" animate={isInView ? "show" : "hidden"} className="grid gap-4 sm:grid-cols-2"><motion.div variants={scaleUp} {...buttonTap}><Link href="/contact" className="flex items-center justify-center gap-3 rounded-2xl bg-primary px-4 py-4 text-center font-semibold text-white shadow-[0_12px_32px_rgba(255,140,75,0.30)]">Contact Now <ArrowRight size={18} /></Link></motion.div><motion.a variants={scaleUp} {...buttonTap} href={profile.resumeUrl} download className="flex items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-4 text-center font-semibold text-white hover:bg-white/[0.06]"><Download size={20} />Download Resume</motion.a></motion.div></motion.div></div>
+    <section ref={sectionRef} id="resume" className="relative py-28 bg-[#0A0A0C] text-white">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        {/* Header */}
+        <div className="space-y-4 mb-16">
+          <div className="framer-badge bg-white/10 text-white border-white/20">
+            <span>✽ CAREER JOURNEY</span>
+          </div>
+
+          <h2 className="font-heading text-3xl sm:text-5xl font-extrabold uppercase tracking-tight">
+            EXPERIENCE & <span className="text-[#D84B20]">EDUCATION</span>
+          </h2>
+
+          <p className="text-zinc-400 text-base sm:text-lg font-medium max-w-2xl">
+            My professional background across full-stack software engineering, browser automation, and computer application studies.
+          </p>
+        </div>
+
+        <div className="grid gap-12 lg:grid-cols-2">
+          {/* Work Experience Timeline */}
+          <div>
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-10 w-10 rounded-xl bg-[#D84B20]/20 text-[#D84B20] flex items-center justify-center">
+                <Briefcase size={20} />
+              </div>
+              <h3 className="font-heading text-2xl font-bold text-white uppercase">Work Experience</h3>
+            </div>
+
+            <div className="timeline-container space-y-8 relative pl-6 border-l border-white/10">
+              {/* Scroll-driven Glowing Line overlay */}
+              <div
+                ref={lineRef}
+                className="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#D84B20] via-[#D84B20]/80 to-transparent origin-top"
+              />
+
+              {experiences.map((exp) => (
+                <div key={exp.title} className="timeline-card-item relative group">
+                  {/* Timeline Dot */}
+                  <span className="absolute -left-[31px] top-1.5 h-4 w-4 rounded-full border-2 border-[#D84B20] bg-[#0A0A0C] group-hover:bg-[#D84B20] transition-colors" />
+
+                  <div className="p-6 rounded-2xl bg-[#141417] border border-white/10 group-hover:border-white/30 transition-all">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                      <h4 className="font-heading text-base font-bold text-white group-hover:text-[#D84B20] transition-colors">
+                        {exp.title}
+                      </h4>
+                      <span className="text-xs font-semibold px-2.5 py-1 rounded-md bg-[#D84B20]/20 text-[#D84B20] w-fit">
+                        {exp.period}
+                      </span>
+                    </div>
+
+                    <p className="text-xs font-bold text-zinc-300 mb-3">{exp.company}</p>
+                    <p className="text-zinc-400 text-xs leading-relaxed font-medium mb-4">{exp.desc}</p>
+
+                    <div className="flex flex-wrap gap-2">
+                      {exp.highlights.map((h) => (
+                        <span key={h} className="text-[11px] font-semibold px-2 py-0.5 rounded bg-white/5 text-zinc-300 border border-white/10">
+                          {h}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Education & Certifications */}
+          <div className="edu-container space-y-12">
+            <div>
+              <div className="flex items-center gap-3 mb-8">
+                <div className="h-10 w-10 rounded-xl bg-[#D84B20]/20 text-[#D84B20] flex items-center justify-center">
+                  <GraduationCap size={20} />
+                </div>
+                <h3 className="font-heading text-2xl font-bold text-white uppercase">Education</h3>
+              </div>
+
+              <div className="space-y-6">
+                {education.map((edu) => (
+                  <div
+                    key={edu.degree}
+                    className="edu-card-item p-6 rounded-2xl bg-[#141417] border border-white/10 hover:border-white/30 transition-all"
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                      <h4 className="font-heading text-base font-bold text-white">{edu.degree}</h4>
+                      <span className="text-xs font-semibold px-2.5 py-1 rounded-md bg-white/10 text-zinc-300 w-fit">
+                        {edu.period}
+                      </span>
+                    </div>
+                    <p className="text-xs font-bold text-[#D84B20] mb-2">{edu.institution}</p>
+                    <p className="text-zinc-400 text-xs leading-relaxed font-medium">{edu.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Certifications */}
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="h-10 w-10 rounded-xl bg-[#D84B20]/20 text-[#D84B20] flex items-center justify-center">
+                  <Award size={20} />
+                </div>
+                <h3 className="font-heading text-2xl font-bold text-white uppercase">Credentials</h3>
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-2">
+                {certs.map((c) => (
+                  <div key={c} className="flex items-center gap-2.5 p-3.5 rounded-xl bg-[#141417] border border-white/10">
+                    <CheckCircle2 size={16} className="text-[#D84B20] shrink-0" />
+                    <span className="text-xs font-bold text-zinc-200">{c}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </motion.section>
+    </section>
   )
 }

@@ -2,9 +2,9 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronDown, HelpCircle, LoaderCircle, Send, Sparkles } from "lucide-react"
+import { ChevronDown, Send } from "lucide-react"
 import { profile } from "@/data/site-content"
-import { fadeUp, scaleUp, sectionReveal, staggerContainer, staggerFast, viewportOnce } from "@/lib/motion"
+import { fadeUp, scaleUp, staggerContainer } from "@/lib/motion"
 
 const initialForm = {
   name: "",
@@ -18,34 +18,34 @@ const initialForm = {
 const freelancingFaqs = [
   {
     question: "What is your typical project timeline?",
-    answer: "Most landing pages take 1-2 weeks, while full-stack MERN applications or complex automation systems usually take 3-6 weeks depending on requirements."
+    answer: "Most web builds take 1-2 weeks, while full-stack MERN applications or complex automation systems usually take 3-5 weeks depending on requirements."
   },
   {
     question: "Do you offer fixed-price or hourly rates?",
-    answer: "I prefer fixed-price contracts for well-defined projects to ensure transparency, but I'm open to hourly rates for ongoing maintenance or R&D work."
+    answer: "I prefer fixed-price contracts for well-defined projects to ensure transparency, but I am open to hourly rates for ongoing maintenance or R&D work."
   },
   {
-    question: "Can you help with deployment and hosting?",
-    answer: "Yes, I handle full deployment to platforms like Vercel, Netlify, Railway, or AWS, and I can set up automated CI/CD workflows."
+    question: "Can you help with deployment and server setup?",
+    answer: "Yes, I handle full deployment to platforms like Vercel, Netlify, Railway, or VPS servers, and I can set up automated deployment workflows."
   },
   {
     question: "Do you provide post-launch support?",
-    answer: "Absolutely. I provide 2 weeks of free support after launch for any bugs, and I offer long-term maintenance packages for feature updates."
+    answer: "Absolutely. I provide support after launch for any debugging, and I offer long-term maintenance packages for feature updates."
   }
 ]
 
 function FaqItem({ item, isOpen, onClick }) {
   return (
-    <div className="glass motion-border overflow-hidden rounded-2xl border border-white/10 transition-colors hover:border-white/20">
+    <div className="rounded-2xl border border-white/10 bg-[#141417] overflow-hidden transition-all hover:border-white/20">
       <button
         onClick={onClick}
-        className="flex w-full items-center justify-between px-6 py-5 text-left transition-colors hover:bg-white/[0.04]"
+        className="flex w-full items-center justify-between p-5 text-left transition-colors hover:bg-white/5"
       >
-        <span className="font-semibold text-white/90">{item.question}</span>
+        <span className="font-heading text-sm font-bold text-white uppercase tracking-wider">{item.question}</span>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3 }}
-          className="text-primary"
+          className="text-[#D84B20]"
         >
           <ChevronDown size={20} />
         </motion.span>
@@ -56,9 +56,9 @@ function FaqItem({ item, isOpen, onClick }) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.3 }}
           >
-            <div className="px-6 pb-5 text-sm leading-relaxed text-white/70 border-t border-white/5 pt-4">
+            <div className="px-5 pb-5 text-xs text-zinc-400 font-medium leading-relaxed border-t border-white/10 pt-3">
               {item.answer}
             </div>
           </motion.div>
@@ -82,180 +82,121 @@ export function QuoteSection() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    
+    await new Promise((resolve) => setTimeout(resolve, 800))
     const subject = encodeURIComponent(`Freelance Quote Request from ${formData.name}`)
     const body = encodeURIComponent(
       `Name: ${formData.name}\nEmail: ${formData.email}\nProject: ${formData.projectType}\nBudget: ${formData.budget}\nDeadline: ${formData.deadline}\n\nDescription:\n${formData.description}`
     )
-    
     window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`
-    
     setIsSubmitting(false)
     setIsSubmitted(true)
     setFormData(initialForm)
   }
 
   return (
-    <motion.section id="get-quote" className="relative overflow-hidden py-24" {...sectionReveal}>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(255,140,75,0.08),transparent_25%),radial-gradient(circle_at_top_left,rgba(198,140,255,0.1),transparent_20%)]" />
-      
-      <div className="relative z-10 mx-auto max-w-7xl px-6">
-        <motion.div variants={staggerContainer} initial="hidden" whileInView="show" viewport={viewportOnce} className="mb-16 text-center">
-          <motion.span variants={fadeUp} className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-white/[0.05] px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white/80">
-            <Sparkles size={14} className="text-primary" />
-            Start Working Together
-          </motion.span>
-          <motion.h2 variants={fadeUp} className="mt-6 text-4xl font-bold text-white md:text-5xl">
-            Get a <span className="gradient-text">Freelance Quote</span>
-          </motion.h2>
-          <motion.p variants={fadeUp} className="mx-auto mt-6 max-w-2xl text-lg text-white/70">
-            Ready to bring your idea to life? Fill out the form below or check the Q&A for common questions about my process.
-          </motion.p>
-        </motion.div>
+    <section id="quote" className="relative py-28 bg-[#0A0A0C] text-white">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.15 }}
+          className="grid gap-12 lg:grid-cols-12 items-start"
+        >
+          {/* FAQ Column */}
+          <div className="lg:col-span-6 space-y-6">
+            <div className="framer-badge bg-white/10 text-white border-white/20">
+              <span>✽ FREQUENTLY ASKED QUESTIONS</span>
+            </div>
 
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-          {/* Form Side */}
-          <motion.div variants={staggerFast} initial="hidden" whileInView="show" viewport={viewportOnce}>
-            <form onSubmit={handleSubmit} className="glass motion-border space-y-6 rounded-[2.5rem] border border-white/10 p-8 sm:p-10">
-              <div className="grid gap-6 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-white/80 ml-1">Your Name</label>
+            <h2 className="font-heading text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
+              PROJECT <span className="text-[#D84B20]">DETAILS</span> & FAQ
+            </h2>
+
+            <p className="text-zinc-400 text-sm font-medium leading-relaxed">
+              Common questions regarding project scoping, development timelines, fixed-rate pricing, and post-launch support.
+            </p>
+
+            <div className="space-y-4 pt-4">
+              {freelancingFaqs.map((item, idx) => (
+                <FaqItem
+                  key={item.question}
+                  item={item}
+                  isOpen={openFaq === idx}
+                  onClick={() => setOpenFaq(openFaq === idx ? -1 : idx)}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Form Column */}
+          <div className="lg:col-span-6">
+            <motion.div variants={scaleUp} className="p-8 rounded-3xl bg-[#141417] border border-white/10 space-y-6">
+              <h3 className="font-heading text-xl font-bold uppercase text-white">Request a Custom Quote</h3>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid gap-4 sm:grid-cols-2">
                   <input
-                    required
+                    type="text"
                     name="name"
+                    required
                     value={formData.name}
                     onChange={handleChange}
-                    className="contact-input w-full rounded-2xl px-5 py-4 text-white"
-                    placeholder="John Doe"
+                    placeholder="Your Name *"
+                    className="rounded-xl bg-[#1E1E24] border border-white/10 px-4 py-3 text-xs text-white placeholder:text-zinc-500 focus:border-[#D84B20] focus:outline-none"
                   />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-white/80 ml-1">Email Address</label>
                   <input
-                    required
                     type="email"
                     name="email"
+                    required
                     value={formData.email}
                     onChange={handleChange}
-                    className="contact-input w-full rounded-2xl px-5 py-4 text-white"
-                    placeholder="john@example.com"
+                    placeholder="Your Email *"
+                    className="rounded-xl bg-[#1E1E24] border border-white/10 px-4 py-3 text-xs text-white placeholder:text-zinc-500 focus:border-[#D84B20] focus:outline-none"
                   />
                 </div>
-              </div>
 
-              <div className="grid gap-6 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-white/80 ml-1">Project Type</label>
-                  <select
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <input
+                    type="text"
                     name="projectType"
                     value={formData.projectType}
                     onChange={handleChange}
-                    className="contact-input w-full rounded-2xl px-5 py-4 text-white bg-transparent"
-                  >
-                    <option value="" className="bg-[#08162b]">Select an option</option>
-                    <option value="MERN App" className="bg-[#08162b]">Full-Stack MERN App</option>
-                    <option value="Landing Page" className="bg-[#08162b]">Premium Landing Page</option>
-                    <option value="Automation" className="bg-[#08162b]">Browser Automation</option>
-                    <option value="Other" className="bg-[#08162b]">Other / Consultation</option>
-                  </select>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-white/80 ml-1">Estimated Budget</label>
+                    placeholder="Project Type (e.g. MERN App)"
+                    className="rounded-xl bg-[#1E1E24] border border-white/10 px-4 py-3 text-xs text-white placeholder:text-zinc-500 focus:border-[#D84B20] focus:outline-none"
+                  />
                   <input
+                    type="text"
                     name="budget"
                     value={formData.budget}
                     onChange={handleChange}
-                    className="contact-input w-full rounded-2xl px-5 py-4 text-white"
-                    placeholder="e.g. $500 - $1500"
+                    placeholder="Estimated Budget"
+                    className="rounded-xl bg-[#1E1E24] border border-white/10 px-4 py-3 text-xs text-white placeholder:text-zinc-500 focus:border-[#D84B20] focus:outline-none"
                   />
                 </div>
-              </div>
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-white/80 ml-1">Preferred Deadline</label>
-                <input
-                  name="deadline"
-                  value={formData.deadline}
-                  onChange={handleChange}
-                  className="contact-input w-full rounded-2xl px-5 py-4 text-white"
-                  placeholder="e.g. End of next month"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-white/80 ml-1">Tell me about your project</label>
                 <textarea
-                  required
                   name="description"
+                  required
+                  rows={4}
                   value={formData.description}
                   onChange={handleChange}
-                  rows={4}
-                  className="contact-input w-full rounded-[1.5rem] px-5 py-4 text-white"
-                  placeholder="Describe your goals, required features, and any inspiration..."
+                  placeholder="Project details & scope..."
+                  className="w-full rounded-xl bg-[#1E1E24] border border-white/10 px-4 py-3 text-xs text-white placeholder:text-zinc-500 focus:border-[#D84B20] focus:outline-none resize-none"
                 />
-              </div>
 
-              <motion.button
-                variants={scaleUp}
-                type="submit"
-                disabled={isSubmitting}
-                whileHover={isSubmitting ? undefined : { scale: 1.02 }}
-                whileTap={isSubmitting ? undefined : { scale: 0.98 }}
-                className="group relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-2xl bg-primary py-4 font-bold text-white shadow-[0_15px_35px_rgba(255,140,75,0.3)] transition-all disabled:opacity-70"
-              >
-                {isSubmitting ? (
-                  <LoaderCircle className="h-5 w-5 animate-spin" />
-                ) : (
-                  <Send className="h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                )}
-                {isSubmitting ? "Generating Email..." : "Send Quote Request"}
-              </motion.button>
-
-              {isSubmitted && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-4 text-center text-sm text-emerald-200"
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#D84B20] py-3.5 text-xs font-bold text-white uppercase tracking-wider hover:bg-[#C43F16] transition-colors shadow-lg"
                 >
-                  Request prepared! Opening your mail client...
-                </motion.div>
-              )}
-            </form>
-          </motion.div>
-
-          {/* Q&A Side */}
-          <motion.div variants={staggerFast} initial="hidden" whileInView="show" viewport={viewportOnce} className="flex flex-col gap-6">
-            <div className="glass motion-border mb-4 rounded-3xl border border-white/10 p-8">
-              <div className="icon-highlight mb-4 flex h-14 w-14 items-center justify-center rounded-2xl">
-                <HelpCircle className="h-7 w-7 text-primary" />
-              </div>
-              <h3 className="text-2xl font-bold text-white">Freelancing Q&A</h3>
-              <p className="mt-3 text-white/70">Find quick answers to common questions about how I work and what you can expect.</p>
-            </div>
-
-            <div className="space-y-4">
-              {freelancingFaqs.map((faq, index) => (
-                <motion.div key={index} variants={fadeUp}>
-                  <FaqItem
-                    item={faq}
-                    isOpen={openFaq === index}
-                    onClick={() => setOpenFaq(openFaq === index ? -1 : index)}
-                  />
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="mt-auto rounded-3xl border border-dashed border-white/20 p-8 text-center">
-              <p className="text-sm font-medium text-white/60 italic">
-                &quot;Don&apos;t see your question? Drop it in the form, and I&apos;ll get back to you within 24 hours.&quot;
-              </p>
-            </div>
-          </motion.div>
-        </div>
+                  <Send size={14} />
+                  <span>{isSubmitting ? "Submitting..." : "Send Request"}</span>
+                </button>
+              </form>
+            </motion.div>
+          </div>
+        </motion.div>
       </div>
-    </motion.section>
+    </section>
   )
 }

@@ -1,104 +1,98 @@
 "use client"
 
-import { motion } from "framer-motion"
-import Link from "next/link"
-import { Github, Linkedin, Mail, Heart } from "lucide-react"
-import { navItems, profile, socialLinks } from "@/data/site-content"
-import { fadeUp, staggerContainer, staggerFast, viewportOnce } from "@/lib/motion"
-
-const footerSocialLinks = [
-  { icon: Linkedin, href: socialLinks[0]?.href, label: "LinkedIn" },
-  { icon: Mail, href: `mailto:${profile.email}`, label: "Email" },
-  { icon: Github, href: socialLinks[1]?.href, label: "GitHub" },
-]
+import { Link } from "react-router-dom"
+import { ArrowUp, Github, Linkedin, Mail } from "lucide-react"
+import { profile } from "@/data/site-content"
 
 export function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-[#071225]">
-      <div className="absolute bottom-0 left-1/2 h-[22rem] w-[min(90vw,50rem)] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl" />
-
-      <motion.div className="relative z-10 mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16" initial="hidden" whileInView="show" viewport={viewportOnce} variants={staggerContainer}>
-        <div className="mb-12 grid gap-9 sm:gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-12">
-          <motion.div variants={fadeUp} className="lg:col-span-1">
-            <Link href="/" className="inline-block cursor-pointer text-2xl font-bold gradient-text">
-              {profile.brand}
+    <footer className="relative bg-[#0A0A0C] text-white border-t border-white/10 pt-16 pb-12 overflow-hidden">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 pb-12 border-b border-white/10">
+          {/* Brand */}
+          <div className="space-y-4">
+            <Link to="/" className="font-heading text-2xl font-bold tracking-tight text-white block">
+              Vijay Bhooshan Shukla®
             </Link>
-            <p className="mb-6 mt-4 leading-relaxed text-white/88">
-              {profile.title} from {profile.location}, focused on scalable MERN applications, Selenium automation, AI-powered resume tools, REST APIs, and responsive software websites.
+            <p className="text-xs text-zinc-400 leading-relaxed font-medium">
+              Full Stack Developer | AI Automation Engineer | Prompt Engineer with 2 years of experience in MERN Stack, Python browser automation, AI web tools, and production server deployment.
             </p>
-            <motion.div variants={staggerFast} className="flex gap-3">
-              {footerSocialLinks.map((social) => (
-                <motion.a
-                  key={social.label}
-                  href={social.href}
-                  target={social.href.startsWith("http") ? "_blank" : undefined}
-                  rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="icon-highlight flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:scale-105"
-                  variants={fadeUp}
-                  whileHover={{ scale: 1.12, y: -4, rotate: -4 }}
-                  whileTap={{ scale: 0.9 }}
-                  aria-label={social.label}
-                >
-                  <social.icon size={18} />
-                </motion.a>
-              ))}
-            </motion.div>
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeUp}>
-            <h4 className="mb-4 font-semibold text-white">Pages</h4>
-            <ul className="space-y-3">
-              {navItems.slice(0, 3).map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href} className="text-white/88 transition-colors hover:text-[#ffb067]">
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
+          {/* Nav */}
+          <div className="space-y-3">
+            <h4 className="font-heading text-xs font-bold uppercase tracking-wider text-zinc-300">Navigation</h4>
+            <ul className="space-y-2 text-xs font-semibold text-zinc-400">
+              <li><Link to="/" className="hover:text-[#D84B20] transition-colors">Home</Link></li>
+              <li><Link to="/about" className="hover:text-[#D84B20] transition-colors">Who We Are</Link></li>
+              <li><Link to="/services" className="hover:text-[#D84B20] transition-colors">Services</Link></li>
+              <li><Link to="/projects" className="hover:text-[#D84B20] transition-colors">Projects</Link></li>
+              <li><Link to="/testimonials" className="hover:text-[#D84B20] transition-colors">Testimonials</Link></li>
+              <li><Link to="/contact" className="hover:text-[#D84B20] transition-colors">Contact</Link></li>
             </ul>
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeUp}>
-            <h4 className="mb-4 font-semibold text-white">More</h4>
-            <ul className="space-y-3">
-              {navItems.slice(3).map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href} className="text-white/88 transition-colors hover:text-[#ffb067]">
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <a href={`mailto:${profile.email}`} className="text-white/88 transition-colors hover:text-[#ffb067]">
-                  {profile.email}
-                </a>
-              </li>
+          {/* Tech */}
+          <div className="space-y-3">
+            <h4 className="font-heading text-xs font-bold uppercase tracking-wider text-zinc-300">Stack</h4>
+            <ul className="space-y-2 text-xs font-semibold text-zinc-400">
+              <li>React.js & Next.js</li>
+              <li>Node.js, Express & MongoDB</li>
+              <li>Python & Selenium Automation</li>
+              <li>Generative AI & Prompt Engineering</li>
             </ul>
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeUp}>
-            <h4 className="mb-4 font-semibold text-white">Resume Details</h4>
-            <div className="space-y-3 text-sm text-white/84">
-              <p>1.7+ years in MERN stack and automation engineering</p>
-              <p>React.js, Next.js, Node.js, Express.js, MongoDB, Python, Selenium</p>
-              <p>Microsoft Azure and Advanced MERN Stack with Generative AI</p>
-              <a href={`tel:${profile.phone}`} className="inline-flex text-white/88 transition-colors hover:text-[#ffb067]">{profile.phone}</a>
+          {/* Connect */}
+          <div className="space-y-3">
+            <h4 className="font-heading text-xs font-bold uppercase tracking-wider text-zinc-300">Connect</h4>
+            <div className="flex gap-2">
+              <a
+                href={profile.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-10 w-10 rounded-xl bg-[#141417] border border-white/10 flex items-center justify-center text-zinc-300 hover:bg-[#D84B20] hover:text-white hover:border-[#D84B20] transition-all"
+                aria-label="LinkedIn"
+              >
+                <Linkedin size={18} />
+              </a>
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-10 w-10 rounded-xl bg-[#141417] border border-white/10 flex items-center justify-center text-zinc-300 hover:bg-[#D84B20] hover:text-white hover:border-[#D84B20] transition-all"
+                aria-label="GitHub"
+              >
+                <Github size={18} />
+              </a>
+              <a
+                href={`mailto:${profile.email}`}
+                className="h-10 w-10 rounded-xl bg-[#141417] border border-white/10 flex items-center justify-center text-zinc-300 hover:bg-[#D84B20] hover:text-white hover:border-[#D84B20] transition-all"
+                aria-label="Email"
+              >
+                <Mail size={18} />
+              </a>
             </div>
-          </motion.div>
+          </div>
         </div>
 
-        <motion.div variants={fadeUp} className="flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-center text-sm text-white/80 md:flex-row md:text-left">
-          <p className="flex items-center gap-1">
-            {new Date().getFullYear()} {profile.brand}. Made with <Heart size={14} className="text-accent" />
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:justify-end">
-            <a href={profile.resumeUrl} download className="text-white/88 transition-colors hover:text-[#ffb067]">Download Resume</a>
-            <a href={`mailto:${profile.email}`} className="text-white/88 transition-colors hover:text-[#ffb067]">Email</a>
-            <Link href="/testimonials" className="text-white/88 transition-colors hover:text-[#ffb067]">Testimonials</Link>
-            <Link href="/contact" className="text-white/88 transition-colors hover:text-[#ffb067]">Contact</Link>
-          </div>
-        </motion.div>
-      </motion.div>
+        {/* Bottom Bar */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500 font-semibold">
+          <p>© {new Date().getFullYear()} Vijay Bhooshan Shukla. All rights reserved.</p>
+
+          <button
+            onClick={scrollToTop}
+            className="flex items-center gap-2 text-zinc-300 hover:text-[#D84B20] transition-all"
+          >
+            <span>Back to top</span>
+            <ArrowUp size={14} />
+          </button>
+        </div>
+      </div>
     </footer>
   )
 }

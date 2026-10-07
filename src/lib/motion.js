@@ -37,6 +37,15 @@ export const staggerFast = {
   },
 }
 
+export const staggerItem = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: easing },
+  },
+}
+
 export const fadeUp = {
   hidden: { opacity: 0, y: 28 },
   show: {
@@ -153,6 +162,25 @@ export const iconBounce = {
   },
 }
 
+export const blurIn = {
+  hidden: { opacity: 0, filter: "blur(12px)", y: 20 },
+  show: {
+    opacity: 1,
+    filter: "blur(0px)",
+    y: 0,
+    transition: { duration: 0.75, ease: easing },
+  },
+}
+
+export const clipReveal = {
+  hidden: { opacity: 0, clipPath: "inset(100% 0% 0% 0%)" },
+  show: {
+    opacity: 1,
+    clipPath: "inset(0% 0% 0% 0%)",
+    transition: { duration: 0.85, ease: easing },
+  },
+}
+
 export const modalBackdrop = {
   hidden: { opacity: 0, backdropFilter: "blur(0px)" },
   show: {
@@ -178,3 +206,4 @@ export const modalPanel = {
     transition: { duration: 0.22, ease: "easeInOut" },
   },
 }
+

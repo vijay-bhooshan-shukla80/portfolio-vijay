@@ -91,7 +91,7 @@ export function OpportunityModal({ isOpen, onClose }) {
                 </h2>
 
                 <p className="mt-4 max-w-lg text-sm leading-7 text-white/82 sm:text-base">
-                  Automation Engineer and MERN Stack Developer with 1.7+ years of experience building React.js
+                  Automation Engineer, MERN Stack Developer, and Prompt Engineer with 2 years of experience building React.js
                   interfaces, Node.js and Express.js APIs, MongoDB apps, Python automation, Selenium workflows, and
                   AI-powered platforms.
                 </p>

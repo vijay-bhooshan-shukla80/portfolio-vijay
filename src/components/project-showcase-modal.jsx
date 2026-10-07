@@ -2,9 +2,8 @@
 
 import { motion, useReducedMotion } from "framer-motion"
 import { ExternalLink, Github } from "lucide-react"
-import Image from "next/image"
 import { GlassModal } from "@/components/glass-modal"
-import { buttonTap, iconBounce } from "@/lib/motion"
+import { buttonTap } from "@/lib/motion"
 
 export function ProjectShowcaseModal({ project, isOpen, onClose }) {
   const prefersReducedMotion = useReducedMotion()
@@ -17,55 +16,41 @@ export function ProjectShowcaseModal({ project, isOpen, onClose }) {
 
   return (
     <GlassModal isOpen={isOpen} onClose={onClose} titleId="project-modal-title" panelClassName="max-w-4xl">
-      <div className="grid gap-5 lg:grid-cols-[1.02fr_0.98fr] lg:items-start lg:gap-6">
-        <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.04]">
-          <div className="relative aspect-[4/3] sm:aspect-[1.08/1]">
-            <Image src={project.image} alt={project.title} fill className="object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#07162b]/90 via-[#07162b]/15 to-transparent" />
-          </div>
+      <div className="grid gap-6 lg:grid-cols-2 lg:items-start text-white">
+        <div className="overflow-hidden rounded-2xl border border-white/10 bg-zinc-900 aspect-[4/3] relative">
+          <img src={project.image} alt={project.title} className="h-full w-full object-cover" />
         </div>
 
-        <div className="pr-0 sm:pr-12">
-          <div className="inline-flex max-w-full rounded-full border border-primary/30 bg-white/[0.06] px-3 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-white/80 sm:px-4 sm:text-xs sm:tracking-[0.24em]">
-            Project Showcase
+        <div className="space-y-4">
+          <div className="framer-badge">
+            <span>✽ PROJECT SHOWCASE</span>
           </div>
 
-          <h3 id="project-modal-title" className="mt-4 text-xl font-bold text-white sm:text-3xl">
+          <h3 id="project-modal-title" className="font-heading text-2xl font-bold">
             {project.title}
           </h3>
 
-          <p className="mt-4 text-sm leading-7 text-white/82 sm:text-base">{project.description}</p>
+          <p className="text-sm text-zinc-300 leading-relaxed font-medium">{project.description}</p>
 
-          <div className="mt-5 flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 pt-2">
             {project.tags?.map((tag) => (
-              <span key={tag} className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1.5 text-xs font-medium text-white/88">
+              <span key={tag} className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-semibold text-zinc-300">
                 {tag}
               </span>
             ))}
           </div>
 
-          <div className="mt-6 grid gap-3 text-sm text-white/76">
-            <div className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3">
-              Recruiter note: built around practical delivery, polished UI, and production-style responsiveness.
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3">
-              Best fit for clients hiring for MERN, automation, APIs, and responsive business websites.
-            </div>
-          </div>
-
-          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+          <div className="pt-4 flex flex-col gap-3 sm:flex-row">
             {project.liveUrl ? (
               <motion.a
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 {...buttonTap}
-                whileHover={prefersReducedMotion ? undefined : { y: -3, scale: 1.02 }}
-                whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
-                className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-3.5 font-semibold text-white shadow-[0_14px_38px_rgba(255,140,75,0.32)]"
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#D84B20] px-5 py-3 font-bold text-white shadow-lg hover:bg-[#C43F16] transition-colors text-sm"
               >
-                <motion.span variants={iconBounce} initial="rest" whileHover="hover"><ExternalLink size={18} /></motion.span>
-                {project.demoLabel || (isAutomationProject ? "Live Demo" : "Visit Project")}
+                <ExternalLink size={16} />
+                <span>{project.demoLabel || (isAutomationProject ? "Live Demo" : "Visit Project")}</span>
               </motion.a>
             ) : null}
 
@@ -75,12 +60,10 @@ export function ProjectShowcaseModal({ project, isOpen, onClose }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 {...buttonTap}
-                whileHover={prefersReducedMotion ? undefined : { y: -3, scale: 1.02 }}
-                whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
-                className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-white/12 bg-white/[0.06] px-5 py-3.5 font-semibold text-white transition-colors hover:bg-white/[0.1]"
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-3 font-bold text-white hover:bg-white/20 transition-colors text-sm"
               >
-                <motion.span variants={iconBounce} initial="rest" whileHover="hover"><Github size={18} /></motion.span>
-                View Code
+                <Github size={16} />
+                <span>View Code</span>
               </motion.a>
             ) : null}
           </div>
